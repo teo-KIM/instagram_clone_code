@@ -1,15 +1,34 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_code/widgets/post.dart';
 
 class FeedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "instagram",
-          style: TextStyle(fontFamily: "VeganStyle"),
-        ),
-      ),
+      appBar: CupertinoNavigationBar(
+          leading: IconButton(
+            onPressed: () {},
+            icon: Icon(CupertinoIcons.camera_fill),
+            color: Colors.black,
+          ),
+          middle: Text(
+            "instagram",
+            style: TextStyle(fontFamily: "VeganStyle"),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                  icon: ImageIcon(
+                      AssetImage('assets/images/actionbar_camera.png'), color: Colors.black87,),
+                  onPressed: () {}),
+              IconButton(
+                  icon: ImageIcon(
+                      AssetImage('assets/images/actionbar_camera.png'), color: Colors.black87,),
+                  onPressed: () {})
+            ],
+          )),
       body: ListView.builder(
         itemBuilder: feedListBuilder,
         itemCount: 40,
@@ -18,9 +37,7 @@ class FeedPage extends StatelessWidget {
   }
 
   Widget feedListBuilder(BuildContext context, int index) {
-    return Container(
-      height: 100,
-      color: Colors.accents[index % Colors.accents.length],
-    );
+    return Post(index: index,);
   }
 }
+
