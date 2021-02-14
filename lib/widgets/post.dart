@@ -17,9 +17,39 @@ class Post extends StatelessWidget {
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
     return Column(
+      children: [_postHeader(), _postImage(), _postActions()],
+    );
+  }
+
+  Row _postActions() {
+    return Row(
       children: [
-        _postHeader(),
-        _postImage(),
+        IconButton(
+          icon: Image.asset(
+            'assets/images/bookmark.png',
+            width: avatar_size,
+          ),
+          onPressed: null,
+          color: Colors.black87,
+        ),
+        IconButton(
+          icon: Image.asset('assets/images/comment.png', width: avatar_size),
+          onPressed: null,
+          color: Colors.black87,
+        ),
+        IconButton(
+          icon: Image.asset('assets/images/direct_message.png',
+              width: avatar_size),
+          onPressed: null,
+          color: Colors.black87,
+        ),
+        Spacer(),
+        IconButton(
+          icon: Image.asset('assets/images/heart_selected.png',
+              width: avatar_size),
+          onPressed: null,
+          color: Colors.black87,
+        ),
       ],
     );
   }
@@ -61,5 +91,3 @@ class Post extends StatelessWidget {
     );
   }
 }
-
-
