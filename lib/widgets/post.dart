@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_code/constants/common_size.dart';
+import 'package:instagram_clone_code/widgets/comment.dart';
 import 'package:instagram_clone_code/widgets/my_progress_indicator.dart';
 import 'package:instagram_clone_code/widgets/rounded_avatar.dart';
 
@@ -17,7 +18,36 @@ class Post extends StatelessWidget {
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
     return Column(
-      children: [_postHeader(), _postImage(), _postActions()],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _postHeader(),
+        _postImage(),
+        _postActions(),
+        _postLikes(),
+        _postCaption()
+      ],
+    );
+  }
+
+  Widget _postCaption() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: common_xxs_gap, horizontal: common_xxs_gap),
+      child: Comment(
+        showImage: false,
+        username: 'testUser',
+        text: "show me the money",
+      ),
+    );
+  }
+
+  Padding _postLikes() {
+    return Padding(
+      padding: const EdgeInsets.only(left: common_gap),
+      child: Text(
+        "12000 likes",
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
     );
   }
 
