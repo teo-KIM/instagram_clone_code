@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone_code/feed_page.dart';
+import 'package:instagram_clone_code/screens/feed_screen.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List<Widget> _screens = [
-    FeedPage(),
+    FeedScreen(),
     Container(
       color: Colors.amber,
     ),

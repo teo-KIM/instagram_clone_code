@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_code/widgets/post.dart';
 
-class FeedPage extends StatelessWidget {
+class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
