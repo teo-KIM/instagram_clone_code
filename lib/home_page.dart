@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_code/screens/feed_screen.dart';
+import 'package:instagram_clone_code/screens/profile_screen.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({
@@ -30,9 +31,7 @@ class _HomePageState extends State<HomePage> {
     Container(
       color: Colors.yellowAccent,
     ),
-    Container(
-      color: Colors.purpleAccent,
-    ),
+   ProfileScreen(),
   ];
 
   int _selectedIndex = 0;
