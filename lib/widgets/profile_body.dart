@@ -10,6 +10,8 @@ class ProfileBody extends StatefulWidget {
 
 class _ProfileBodyState extends State<ProfileBody> {
   SelectedTab _selectedTab = SelectedTab.LEFT;
+  double _leftImagesPageMargin = 0;
+  double _rightImagesPageMargin = size.width;
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +26,46 @@ class _ProfileBodyState extends State<ProfileBody> {
             _tapButtons(),
             _selectedIndicator(),
           ])),
-          SliverToBoxAdapter(
-            child: GridView.count(
-              crossAxisCount: 3,
-              childAspectRatio: 1,
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children: List.generate(
-                30,
-                (index) => CachedNetworkImage(
-                    imageUrl: "https://picsum.photos/id/$index/100/100",
-                fit: BoxFit.cover,),
-              ),
-            ),
-          )
+          _imagesPager()
         ],
       ),
     );
+  }
+
+  SliverToBoxAdapter _imagesPager() {
+    return SliverToBoxAdapter(
+          child: Stack(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 1000),
+                transform: Matrix4.translationValues(_leftImagesPageMargin, 0, 0),
+                child: _images(),
+                curve: Curves.fastLinearToSlowEaseIn,
+              ),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 1000),
+                transform: Matrix4.translationValues(_rightImagesPageMargin, 0, 0),
+                child: _images(),
+                curve: Curves.fastLinearToSlowEaseIn,
+              ),
+            ],
+          ),
+        );
+  }
+
+  GridView _images() {
+    return GridView.count(
+                crossAxisCount: 3,
+                childAspectRatio: 1,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: List.generate(
+                  30,
+                  (index) => CachedNetworkImage(
+                      imageUrl: "https://picsum.photos/id/$index/100/100",
+                  fit: BoxFit.cover,),
+                ),
+              );
   }
 
   Widget _selectedIndicator() {
@@ -72,6 +97,8 @@ class _ProfileBodyState extends State<ProfileBody> {
               onPressed: () {
                 setState(() {
                   _selectedTab = SelectedTab.LEFT;
+                  _leftImagesPageMargin = 0;
+                  _rightImagesPageMargin = size.width;
                 });
               }),
         ),
@@ -86,53 +113,58 @@ class _ProfileBodyState extends State<ProfileBody> {
               onPressed: () {
                 setState(() {
                   _selectedTab = SelectedTab.RIGHT;
+                  _leftImagesPageMargin = -size.width;
+                  _rightImagesPageMargin = 0;
                 });
               }),
         )
       ],
     );
   }
-}
 
-Padding _editProfileBtn() {
-  return Padding(
-    padding:
-        EdgeInsets.symmetric(horizontal: common_gap, vertical: common_xxs_gap),
-    child: SizedBox(
-      height: 24,
-      child: OutlinedButton(
-        onPressed: () {},
-        child: Text(
-          'Edit profile',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+
+  Padding _editProfileBtn() {
+    return Padding(
+      padding:
+      EdgeInsets.symmetric(horizontal: common_gap, vertical: common_xxs_gap),
+      child: SizedBox(
+        height: 24,
+        child: OutlinedButton(
+          onPressed: () {},
+          child: Text(
+            'Edit profile',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+          ),
+          style: OutlinedButton.styleFrom(
+              side: BorderSide(color: Colors.black45),
+              shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))),
         ),
-        style: OutlinedButton.styleFrom(
-            side: BorderSide(color: Colors.black45),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))),
       ),
-    ),
-  );
+    );
+  }
+
+  Widget _userbio() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: common_gap),
+      child: Text(
+        'operation cwal',
+        style: TextStyle(fontWeight: FontWeight.w400),
+      ),
+    );
+  }
+
+  Widget _username() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: common_gap),
+      child: Text(
+        'username',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
 }
 
-Widget _userbio() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: common_gap),
-    child: Text(
-      'operation cwal',
-      style: TextStyle(fontWeight: FontWeight.w400),
-    ),
-  );
-}
 
-Widget _username() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: common_gap),
-    child: Text(
-      'username',
-      style: TextStyle(fontWeight: FontWeight.bold),
-    ),
-  );
-}
 
 enum SelectedTab { LEFT, RIGHT }
