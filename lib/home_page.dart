@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_code/constants/screen_size.dart';
 import 'package:instagram_clone_code/screens/feed_screen.dart';
 import 'package:instagram_clone_code/screens/profile_screen.dart';
 
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if(size != null)size = MediaQuery.of(context).size;
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
