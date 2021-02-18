@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_code/constants/common_size.dart';
+import 'package:instagram_clone_code/constants/screen_size.dart';
 
 class ProfileBody extends StatefulWidget {
   @override
@@ -7,7 +9,7 @@ class ProfileBody extends StatefulWidget {
 }
 
 class _ProfileBodyState extends State<ProfileBody> {
-  bool selectedLeft = true;
+  SelectedTab _selectedTab = SelectedTab.LEFT;
 
   @override
   Widget build(BuildContext context) {
@@ -19,37 +21,75 @@ class _ProfileBodyState extends State<ProfileBody> {
             _username(),
             _userbio(),
             _editProfileBtn(),
-            Row(
-              children: [
-                Expanded(
-                  child: IconButton(
-                      icon: ImageIcon(
-                        AssetImage('assets/images/grid.png'),
-                        color: selectedLeft ? Colors.black : Colors.black26,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selectedLeft = true;
-                        });
-                      }),
-                ),
-                Expanded(
-                  child: IconButton(
-                      icon: ImageIcon(
-                        AssetImage('assets/images/saved.png'),
-                        color: !selectedLeft ? Colors.black : Colors.black26,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          selectedLeft = false;
-                        });
-                      }),
-                )
-              ],
-            )
-          ]))
+            _tapButtons(),
+            _selectedIndicator(),
+          ])),
+          SliverToBoxAdapter(
+            child: GridView.count(
+              crossAxisCount: 3,
+              childAspectRatio: 1,
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              children: List.generate(
+                30,
+                (index) => CachedNetworkImage(
+                    imageUrl: "https://picsum.photos/id/$index/100/100",
+                fit: BoxFit.cover,),
+              ),
+            ),
+          )
         ],
       ),
+    );
+  }
+
+  Widget _selectedIndicator() {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 1000),
+      alignment: _selectedTab == SelectedTab.LEFT
+          ? Alignment.centerLeft
+          : Alignment.centerRight,
+      child: Container(
+        height: 3,
+        width: size.width / 2,
+        color: Colors.black,
+      ),
+      curve: Curves.fastLinearToSlowEaseIn,
+    );
+  }
+
+  Row _tapButtons() {
+    return Row(
+      children: [
+        Expanded(
+          child: IconButton(
+              icon: ImageIcon(
+                AssetImage('assets/images/grid.png'),
+                color: _selectedTab == SelectedTab.LEFT
+                    ? Colors.black
+                    : Colors.black26,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedTab = SelectedTab.LEFT;
+                });
+              }),
+        ),
+        Expanded(
+          child: IconButton(
+              icon: ImageIcon(
+                AssetImage('assets/images/saved.png'),
+                color: _selectedTab == SelectedTab.RIGHT
+                    ? Colors.black
+                    : Colors.black26,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedTab = SelectedTab.RIGHT;
+                });
+              }),
+        )
+      ],
     );
   }
 }
@@ -94,3 +134,5 @@ Widget _username() {
     ),
   );
 }
+
+enum SelectedTab { LEFT, RIGHT }
