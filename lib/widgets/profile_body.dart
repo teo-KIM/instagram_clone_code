@@ -95,11 +95,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                     : Colors.black26,
               ),
               onPressed: () {
-                setState(() {
-                  _selectedTab = SelectedTab.LEFT;
-                  _leftImagesPageMargin = 0;
-                  _rightImagesPageMargin = size.width;
-                });
+                _tabSelected(SelectedTab.LEFT);
               }),
         ),
         Expanded(
@@ -111,17 +107,33 @@ class _ProfileBodyState extends State<ProfileBody> {
                     : Colors.black26,
               ),
               onPressed: () {
-                setState(() {
-                  _selectedTab = SelectedTab.RIGHT;
-                  _leftImagesPageMargin = -size.width;
-                  _rightImagesPageMargin = 0;
-                });
+                _tabSelected(SelectedTab.RIGHT);
               }),
         )
       ],
     );
   }
 
+  void _tabSelected(SelectedTab selectedTab){
+    switch(selectedTab){
+
+      case SelectedTab.LEFT:
+        setState(() {
+          _selectedTab = SelectedTab.LEFT;
+          _leftImagesPageMargin = 0;
+          _rightImagesPageMargin = size.width;
+        });
+        break;
+      case SelectedTab.RIGHT:
+        setState(() {
+          _selectedTab = SelectedTab.RIGHT;
+          _leftImagesPageMargin = -size.width;
+          _rightImagesPageMargin = 0;
+        });
+        break;
+    }
+
+  }
 
   Padding _editProfileBtn() {
     return Padding(
