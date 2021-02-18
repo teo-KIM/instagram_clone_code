@@ -1,10 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_code/constants/common_size.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _appbar(),
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  SliverList(
+                      delegate: SliverChildListDelegate(
+                          <Widget>[_username(), _userbio(), _editProfileBtn()]))
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
+  Padding _editProfileBtn() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: common_gap),
+      child: SizedBox(
+        height: 24,
+        child: OutlinedButton(
+          onPressed: () {},
+          child: Text(
+            'Edit profile',
+            style:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+          ),
+          style: OutlinedButton.styleFrom(
+              side: BorderSide(color: Colors.black45),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6))),
+        ),
+      ),
+    );
+  }
+
+  Widget _userbio() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: common_gap),
+      child: Text(
+        'operation cwal',
+        style: TextStyle(fontWeight: FontWeight.w400),
+      ),
+    );
+  }
+
+  Widget _username() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: common_gap),
+      child: Text(
+        'username',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Row _appbar() {
+    return Row(
+      children: [
+        SizedBox(
+          width: 44,
+        ),
+        Expanded(
+            child: Text(
+          "the coding papa",
+          textAlign: TextAlign.center,
+        )),
+        IconButton(icon: Icon(Icons.menu), onPressed: () {})
+      ],
     );
   }
 }
