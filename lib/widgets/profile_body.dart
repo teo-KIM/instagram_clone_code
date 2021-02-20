@@ -2,9 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_code/constants/common_size.dart';
 import 'package:instagram_clone_code/constants/screen_size.dart';
+import 'package:instagram_clone_code/screens/profile_screen.dart';
 import 'package:instagram_clone_code/widgets/rounded_avatar.dart';
 
 class ProfileBody extends StatefulWidget {
+
+  final Function() onMenuChanged;
+
+  const ProfileBody({Key key, this.onMenuChanged}) : super(key: key);
+
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
 }
@@ -16,50 +22,58 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-              delegate: SliverChildListDelegate(<Widget>[
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(common_gap),
-                  child: RoundedAvatar(
-                    size: 80,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: common_gap),
-                    child: Table(
+    return SafeArea(
+      child: Column(
+        children: [
+          _appbar(),
+          Expanded(
+            child: CustomScrollView(
+                slivers: [
+                  SliverList(
+                      delegate: SliverChildListDelegate(<Widget>[
+                    Row(
                       children: [
-                        TableRow(children: [
-                          _valueText("141414"),
-                          _valueText("2983"),
-                          _valueText("1094"),
-                        ]),
-                        TableRow(children: [
-                          _labelText("Post"),
-                          _labelText("Followers"),
-                          _labelText("Following")
-                        ])
+                        Padding(
+                          padding: const EdgeInsets.all(common_gap),
+                          child: RoundedAvatar(
+                            size: 80,
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: common_gap),
+                            child: Table(
+                              children: [
+                                TableRow(children: [
+                                  _valueText("141414"),
+                                  _valueText("2983"),
+                                  _valueText("1094"),
+                                ]),
+                                TableRow(children: [
+                                  _labelText("Post"),
+                                  _labelText("Followers"),
+                                  _labelText("Following")
+                                ])
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                )
-              ],
-            ),
-            _username(),
-            _userbio(),
-            _editProfileBtn(),
-            _tapButtons(),
-            _selectedIndicator(),
-          ])),
-          _imagesPager()
+                    _username(),
+                    _userbio(),
+                    _editProfileBtn(),
+                    _tapButtons(),
+                    _selectedIndicator(),
+                  ])),
+                  _imagesPager()
+                ],
+              ),
+          ),
         ],
       ),
     );
+    // );
   }
 
   Text _valueText(String value) => Text(
@@ -217,6 +231,28 @@ class _ProfileBodyState extends State<ProfileBody> {
       ),
     );
   }
+
+  Row _appbar() {
+    return Row(
+      children: [
+        SizedBox(
+          width: 44,
+        ),
+        Expanded(
+            child: Text(
+              "the coding papa",
+              textAlign: TextAlign.center,
+            )),
+        IconButton(icon: Icon(Icons.menu), onPressed: () {
+          widget.onMenuChanged();
+        })
+      ],
+    );
+  }
+
 }
+
+
+
 
 enum SelectedTab { LEFT, RIGHT }
