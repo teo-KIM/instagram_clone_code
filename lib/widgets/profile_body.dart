@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_code/constants/common_size.dart';
 import 'package:instagram_clone_code/constants/screen_size.dart';
+import 'package:instagram_clone_code/widgets/rounded_avatar.dart';
 
 class ProfileBody extends StatefulWidget {
   @override
@@ -20,6 +21,35 @@ class _ProfileBodyState extends State<ProfileBody> {
         slivers: [
           SliverList(
               delegate: SliverChildListDelegate(<Widget>[
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(common_gap),
+                  child: RoundedAvatar(
+                    size: 80,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: common_gap),
+                    child: Table(
+                      children: [
+                        TableRow(children: [
+                          _valueText("141414"),
+                          _valueText("2983"),
+                          _valueText("1094"),
+                        ]),
+                        TableRow(children: [
+                          _labelText("Post"),
+                          _labelText("Followers"),
+                          _labelText("Following")
+                        ])
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
             _username(),
             _userbio(),
             _editProfileBtn(),
@@ -32,40 +62,53 @@ class _ProfileBodyState extends State<ProfileBody> {
     );
   }
 
+  Text _valueText(String value) => Text(
+        value,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      );
+
+  Text _labelText(String label) => Text(
+        label,
+        style: TextStyle(fontWeight: FontWeight.w300),
+        textAlign: TextAlign.center,
+      );
+
   SliverToBoxAdapter _imagesPager() {
     return SliverToBoxAdapter(
-          child: Stack(
-            children: [
-              AnimatedContainer(
-                duration: Duration(milliseconds: 1000),
-                transform: Matrix4.translationValues(_leftImagesPageMargin, 0, 0),
-                child: _images(),
-                curve: Curves.fastLinearToSlowEaseIn,
-              ),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 1000),
-                transform: Matrix4.translationValues(_rightImagesPageMargin, 0, 0),
-                child: _images(),
-                curve: Curves.fastLinearToSlowEaseIn,
-              ),
-            ],
+      child: Stack(
+        children: [
+          AnimatedContainer(
+            duration: Duration(milliseconds: 1000),
+            transform: Matrix4.translationValues(_leftImagesPageMargin, 0, 0),
+            child: _images(),
+            curve: Curves.fastLinearToSlowEaseIn,
           ),
-        );
+          AnimatedContainer(
+            duration: Duration(milliseconds: 1000),
+            transform: Matrix4.translationValues(_rightImagesPageMargin, 0, 0),
+            child: _images(),
+            curve: Curves.fastLinearToSlowEaseIn,
+          ),
+        ],
+      ),
+    );
   }
 
   GridView _images() {
     return GridView.count(
-                crossAxisCount: 3,
-                childAspectRatio: 1,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: List.generate(
-                  30,
-                  (index) => CachedNetworkImage(
-                      imageUrl: "https://picsum.photos/id/$index/100/100",
-                  fit: BoxFit.cover,),
-                ),
-              );
+      crossAxisCount: 3,
+      childAspectRatio: 1,
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      children: List.generate(
+        30,
+        (index) => CachedNetworkImage(
+          imageUrl: "https://picsum.photos/id/$index/100/100",
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 
   Widget _selectedIndicator() {
@@ -114,9 +157,8 @@ class _ProfileBodyState extends State<ProfileBody> {
     );
   }
 
-  void _tabSelected(SelectedTab selectedTab){
-    switch(selectedTab){
-
+  void _tabSelected(SelectedTab selectedTab) {
+    switch (selectedTab) {
       case SelectedTab.LEFT:
         setState(() {
           _selectedTab = SelectedTab.LEFT;
@@ -132,25 +174,25 @@ class _ProfileBodyState extends State<ProfileBody> {
         });
         break;
     }
-
   }
 
   Padding _editProfileBtn() {
     return Padding(
-      padding:
-      EdgeInsets.symmetric(horizontal: common_gap, vertical: common_xxs_gap),
+      padding: EdgeInsets.symmetric(
+          horizontal: common_gap, vertical: common_xxs_gap),
       child: SizedBox(
         height: 24,
         child: OutlinedButton(
           onPressed: () {},
           child: Text(
             'Edit profile',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
+            style:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
           ),
           style: OutlinedButton.styleFrom(
               side: BorderSide(color: Colors.black45),
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6))),
         ),
       ),
     );
@@ -176,7 +218,5 @@ class _ProfileBodyState extends State<ProfileBody> {
     );
   }
 }
-
-
 
 enum SelectedTab { LEFT, RIGHT }
