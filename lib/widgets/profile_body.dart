@@ -15,10 +15,24 @@ class ProfileBody extends StatefulWidget {
   _ProfileBodyState createState() => _ProfileBodyState();
 }
 
-class _ProfileBodyState extends State<ProfileBody> {
+class _ProfileBodyState extends State<ProfileBody> with SingleTickerProviderStateMixin{
   SelectedTab _selectedTab = SelectedTab.LEFT;
   double _leftImagesPageMargin = 0;
   double _rightImagesPageMargin = size.width;
+
+  AnimationController _iconAnimationController;
+
+  @override
+  void initState() {
+    _iconAnimationController = AnimationController(vsync: this, duration: duration);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _iconAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,8 +257,12 @@ class _ProfileBodyState extends State<ProfileBody> {
               "the coding papa",
               textAlign: TextAlign.center,
             )),
-        IconButton(icon: Icon(Icons.menu), onPressed: () {
+        IconButton(icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_close,
+          progress: _iconAnimationController
+        ), onPressed: () {
           widget.onMenuChanged();
+          _iconAnimationController.status==AnimationStatus.completed ? _iconAnimationController.reverse() : _iconAnimationController.forward();
         })
       ],
     );

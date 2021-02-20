@@ -4,7 +4,7 @@ import 'package:instagram_clone_code/constants/screen_size.dart';
 import 'package:instagram_clone_code/widgets/profile_body.dart';
 import 'package:instagram_clone_code/widgets/profile_side_menu.dart';
 
-final duration = Duration(milliseconds: 1000);
+final duration = Duration(milliseconds: 300);
 
 class ProfileScreen extends StatefulWidget {
 
@@ -14,7 +14,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  final menuWidth = size.width/2;
+  final menuWidth = size.width*(2/3);
 
   MenuStatus _menuStatus = MenuStatus.CLOSED;
 
@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   switch(_menuStatus){
                     case MenuStatus.OPENED:
                       bodyXPos = -menuWidth;
-                      menuXPos = menuWidth;
+                      menuXPos = size.width-menuWidth;
                       break;
                     case MenuStatus.CLOSED:
                       bodyXPos = 0;
