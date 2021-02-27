@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_code/widgets/fade_stack.dart';
 import 'package:instagram_clone_code/widgets/sign_in_form.dart';
 import 'package:instagram_clone_code/widgets/sign_up_form.dart';
 
@@ -8,8 +9,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  List<Widget> forms = [SignUpForm(), SignInForm()];
-
   int selectedForm = 0;
 
   @override
@@ -18,9 +17,8 @@ class _AuthScreenState extends State<AuthScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            IndexedStack(
-              index: selectedForm,
-              children: forms,
+            FadeStack(
+              selectedForm: selectedForm,
             ),
             Container(
               child: TextButton(
