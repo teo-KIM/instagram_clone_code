@@ -38,6 +38,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             Image.asset('assets/images/insta_text_logo.png'),
             TextFormField(
+              cursorColor: Colors.black,
               controller: _emailController,
               decoration: _textInputDecor("Email"),
               validator: (text) {
@@ -52,13 +53,15 @@ class _SignUpFormState extends State<SignUpForm> {
               height: common_xs_gap,
             ),
             TextFormField(
+              cursorColor: Colors.black,
+              obscureText: true,
               controller: _passwordController,
               decoration: _textInputDecor("Password"),
               validator: (text) {
                 if (text.isNotEmpty && text.length > 5) {
                   return null;
                 } else {
-                  return "이메일은 5자리 이상 준비해주세요.";
+                  return "비밀번호는 6자리 이상 등록해주세요.";
                 }
               },
             ),
@@ -66,6 +69,8 @@ class _SignUpFormState extends State<SignUpForm> {
               height: common_xs_gap,
             ),
             TextFormField(
+              cursorColor: Colors.black,
+              obscureText: true,
               controller: _confirmPasswordController,
               decoration: _textInputDecor("Confirm Password"),
               validator: (text) {
@@ -75,6 +80,23 @@ class _SignUpFormState extends State<SignUpForm> {
                   return "비밀번호가 일치하지 않습니다.";
                 }
               },
+            ),
+            TextButton(
+              onPressed: () {
+                if(_formKey.currentState.validate()){
+                  //true값
+                }else{
+                  //false값
+                }
+              },
+              child: Text(
+                'Join',
+                style: TextStyle(color: Colors.white),
+              ),
+              style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(6)))),
             ),
           ],
         ),
@@ -88,6 +110,24 @@ class _SignUpFormState extends State<SignUpForm> {
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: Colors.grey[300],
+        ),
+        borderRadius: BorderRadius.circular(common_s_gap),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.red[300],
+        ),
+        borderRadius: BorderRadius.circular(common_s_gap),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.blue[300],
+        ),
+        borderRadius: BorderRadius.circular(common_s_gap),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.red[300],
         ),
         borderRadius: BorderRadius.circular(common_s_gap),
       ),
