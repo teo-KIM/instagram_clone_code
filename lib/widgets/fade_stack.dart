@@ -13,7 +13,7 @@ class FadeStack extends StatefulWidget {
 
 class _FadeStackState extends State<FadeStack>
     with SingleTickerProviderStateMixin {
-  List<Widget> forms = [SignUpForm(), SignInForm()];
+  List<Widget> forms = [SignInForm(), SignUpForm()];
 
   //FadeTransition을 사용하기 위함
   AnimationController _animationController;
