@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_code/constants/common_size.dart';
+import 'package:instagram_clone_code/home_page.dart';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -81,26 +82,69 @@ class _SignUpFormState extends State<SignUpForm> {
                 }
               },
             ),
-            TextButton(
-              onPressed: () {
-                if(_formKey.currentState.validate()){
-                  //true값
-                }else{
-                  //false값
-                }
-              },
-              child: Text(
-                'Join',
-                style: TextStyle(color: Colors.white),
-              ),
-              style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  shape: const BeveledRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(6)))),
+            SizedBox(
+              height: common_s_gap,
             ),
+            _submitButton(context),
+            SizedBox(
+              height: common_s_gap,
+            ),
+            _orDivider(),
+            FlatButton.icon(
+                onPressed: () {},
+                textColor: Colors.blue,
+                icon: ImageIcon(AssetImage('assets/images/facebook.png'),),
+                label: Text("Login with Facebook"))
           ],
         ),
       ),
+    );
+  }
+
+  TextButton _submitButton(BuildContext context) {
+    return TextButton(
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                //true값
+                print('Validation success!!');
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              } else {
+                //false값
+              }
+            },
+            child: Text(
+              'Join',
+              style: TextStyle(color: Colors.white),
+            ),
+            style: TextButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: const BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(5)))),
+          );
+  }
+
+  Stack _orDivider() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Divider(
+          thickness: 2,
+          color: Colors.grey[300],
+        ),
+        Container(
+          color: Colors.grey[50],
+          width: 60,
+          height: 3,
+        ),
+        Text(
+          "OR",
+          style: TextStyle(
+              color: Colors.grey[500],
+              fontWeight: FontWeight.bold,
+              fontSize: 14),
+        )
+      ],
     );
   }
 
