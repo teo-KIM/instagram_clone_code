@@ -113,26 +113,29 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
         borderRadius: BorderRadius.circular(common_s_gap),
       ),
-      errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.red[300],
-        ),
-        borderRadius: BorderRadius.circular(common_s_gap),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.blue[300],
-        ),
-        borderRadius: BorderRadius.circular(common_s_gap),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.red[300],
-        ),
-        borderRadius: BorderRadius.circular(common_s_gap),
-      ),
+      errorBorder: _errorInputBorder(),
+      focusedBorder: _activeInputBorder(),
+      focusedErrorBorder: _errorInputBorder(),
       filled: true,
       fillColor: Colors.grey[100],
+    );
+  }
+
+  OutlineInputBorder _activeInputBorder() {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.blue[300],
+      ),
+      borderRadius: BorderRadius.circular(common_s_gap),
+    );
+  }
+
+  OutlineInputBorder _errorInputBorder() {
+    return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.red[300],
+      ),
+      borderRadius: BorderRadius.circular(common_s_gap),
     );
   }
 }

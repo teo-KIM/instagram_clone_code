@@ -15,6 +15,8 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //키보드가 올라옴에 따라 바텀에 내용이 같이 올라오지 않는다.
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Stack(
           children: [
