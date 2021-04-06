@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone_code/constants/auth_input_deco.dart';
 import 'package:instagram_clone_code/constants/common_size.dart';
 import 'package:instagram_clone_code/home_page.dart';
 
@@ -41,7 +42,7 @@ class _SignUpFormState extends State<SignUpForm> {
             TextFormField(
               cursorColor: Colors.black,
               controller: _emailController,
-              decoration: _textInputDecor("Email"),
+              decoration: textInputDecor("Email"),
               validator: (text) {
                 if (text.isNotEmpty && text.contains("@")) {
                   return null;
@@ -57,7 +58,7 @@ class _SignUpFormState extends State<SignUpForm> {
               cursorColor: Colors.black,
               obscureText: true,
               controller: _passwordController,
-              decoration: _textInputDecor("Password"),
+              decoration: textInputDecor("Password"),
               validator: (text) {
                 if (text.isNotEmpty && text.length > 5) {
                   return null;
@@ -73,7 +74,7 @@ class _SignUpFormState extends State<SignUpForm> {
               cursorColor: Colors.black,
               obscureText: true,
               controller: _confirmPasswordController,
-              decoration: _textInputDecor("Confirm Password"),
+              decoration: textInputDecor("Confirm Password"),
               validator: (text) {
                 if (text.isNotEmpty && _passwordController.text == text) {
                   return null;
@@ -148,38 +149,5 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  InputDecoration _textInputDecor(String hint) {
-    return InputDecoration(
-      hintText: hint,
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.grey[300],
-        ),
-        borderRadius: BorderRadius.circular(common_s_gap),
-      ),
-      errorBorder: _errorInputBorder(),
-      focusedBorder: _activeInputBorder(),
-      focusedErrorBorder: _errorInputBorder(),
-      filled: true,
-      fillColor: Colors.grey[100],
-    );
-  }
 
-  OutlineInputBorder _activeInputBorder() {
-    return OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.blue[300],
-      ),
-      borderRadius: BorderRadius.circular(common_s_gap),
-    );
-  }
-
-  OutlineInputBorder _errorInputBorder() {
-    return OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.red[300],
-      ),
-      borderRadius: BorderRadius.circular(common_s_gap),
-    );
-  }
 }
